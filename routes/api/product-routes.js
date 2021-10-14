@@ -5,17 +5,10 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // find all products
 router.get('/', (req, res) => {
   Product.findAll({
-    attributes: [
-      "id",
-      "product_name",
-      "price",
-      "stock",
-      "category_id"
-    ],
-     include: [{
+    include: [{
       model: Tag, attributes: [
-     "id", "tag_name"
-    ]
+        "id", "tag_name"
+      ]
     }, {
       model: Category, attributes: [
         "id", "category_name"
@@ -33,8 +26,8 @@ router.get('/:id', async (req, res) => {
   Product.findByPk(req.params.id, {
     include: [{
       model: Tag, attributes: [
-     "id", "tag_name"
-    ]
+        "id", "tag_name"
+      ]
     }, {
       model: Category, attributes: [
         "id", "category_name"
