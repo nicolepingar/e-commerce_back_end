@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
-
-// The `/api/tags` endpoint
+// The /api/tags endpoint
 // find all tags
 router.get('/', (req, res) => {
   Tag.findAll({
@@ -16,7 +15,7 @@ router.get('/', (req, res) => {
       res.status(500).json(error);
     })
 });
-// find a single tag by its `id`
+// find a single tag by id number
 router.get('/:id', (req, res) => {
   Tag.findByPk(req.params.id, {
     include: [{
@@ -40,7 +39,7 @@ router.post('/', (req, res) => {
       res.json(err);
     });
 });
-// update a tag's name by its `id` value
+// update a tag's name by id number
 router.put('/:id', (req, res) => {
   Tag.update(
     {
@@ -58,7 +57,7 @@ router.put('/:id', (req, res) => {
     })
     .catch((err) => res.json(err));
 });
-// delete on tag by its `id` value
+// delete a tag by id number
 router.delete('/:id', (req, res) => {
   Tag.destroy({
     where: {

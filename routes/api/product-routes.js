@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
-
-// The `/api/products` endpoint
+// The /api/products endpoint
 // find all products
 router.get('/', (req, res) => {
   Product.findAll({
@@ -20,8 +19,7 @@ router.get('/', (req, res) => {
       res.status(500).json(error);
     })
 });
-
-// get one product
+// find one product by id number
 router.get('/:id', async (req, res) => {
   Product.findByPk(req.params.id, {
     include: [{
@@ -37,7 +35,6 @@ router.get('/:id', async (req, res) => {
     res.json(productData)
   })
 });
-
 // create new product
 router.post('/', async (req, res) => {
   /* req.body should look like this...
@@ -111,9 +108,17 @@ router.put('/:id', (req, res) => {
       res.status(400).json(err);
     });
 });
-
+// delete one product by its `id` value
 router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    }
+  })
+    .then((deletedProduct) => {
+      res.json(deletedProduct);
+    })
+    .catch((err) => res.json(err));
 });
 
 module.exports = router;
